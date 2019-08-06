@@ -4,7 +4,7 @@
 body {
     display:grid;
     grid-template-columns: auto;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: fit-content(100%);
     grid-template-areas:
     "header header header",
     "main main main",
@@ -16,30 +16,45 @@ header{
     height:30vh;
     background-color: blue;
     flex-direction: row;
-    justify-content: center;
-}
+    justify-content: space-evenly;
 
-main{
-    height: auto;
-    display:flex;   
-    flex-direction:row;
-    background-color:red;
 }
+header div{
+    margin:20px;
+}
+header #turn-displayer{
+    font-family: 'Anton', sans-serif;
+    
+}
+main{
+    width:100%;
+    height:200px;
+    background-image:url("https://i.imgur.com/NW0mK39.gif");
+    background-repeat: no-repeat;
+    
+}
+/* 
+main img{
+    height:auto;
+    width:1440px;    
+} */
+
 footer{
     display:flex;
     flex-direction:row;
-    height: 30vh;
+    height: auto;
     background-color:yellow;
     justify-content: center;
+    height: 30vh;
 }
-footer #attackButtons button{
-    display:inline-block;
+footer #attack-buttons button{
+    /* display:inline-block; */
     height: 20vh;
-    width:50vh;
+    width:20vw;
     border-radius: 20px;
     font-size:20px;
-    font-family:
+    font-family: 'Anton', sans-serif;
 }
-footer #attackButtons button:hover {
+footer #attack-buttons button:hover {
     cursor: pointer;
 }
