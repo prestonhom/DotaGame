@@ -73,8 +73,8 @@ magicalAttackButton.addEventListener('click', ember.magicDamage);
 // armor.addEventListener('click', function(){
 
     
-    let rollDice = document.getElementById('roll');
-    rollDice.addEventListener('click', roll);
+    // let rollDice = document.getElementById('roll');
+    // rollDice.addEventListener('click', roll);
     /*----- functions -----*/
     
 function init(){
@@ -136,6 +136,7 @@ function attackPhysicalEmber(){
         action +=1;
         checkAction();
         healthRegen();
+        roshansTurn();
     }
    
 
@@ -159,45 +160,48 @@ function attackMagicalEmber(){
     action += 1;
     checkAction();
     healthRegen();
+    roshansTurn();
     
 }
-// function attackPhysicalRoshan(){
-//     // how much damage does this attack do 
-//     let attack = emberBaseAttackDamage;
-//     totalDamageDone += attack;
-//     document.querySelector('.damage-done').innerHTML = totalDamageDone;
-//         ember.health -= attack;
-//         alert(`YOU JUST DID ${attack} DAMAGE AND DECREASED ROSHAN'S HEALTH BY ${(attack/(roshan.health+attack) * 100).toFixed(2)}% `)  
-//         document.querySelector('.damage-done').innerHTML = `Physical damage done this turn: ${attack}`;
-//         document.querySelector('.percentage-health-this-attack').innerHTML = `Percent of health damaged: ${(attack/(ember.health + attack) * 100).toFixed(2)}%`;
-//         document.querySelector('.percentage-health-total').innerHTML = `Percentage of health roshan has left: ${Math.abs((totalDamageDone - 10000))/100}%`;
-//         document.querySelector('.ember-health').innerHTML = `${ember.health}`;
-//         document.querySelector('.roshan-health').innerHTML = `${roshan.health}`;
-//         checkWinner();
-//         action +=1;
-//         checkAction();
-//         healthRegen();
-// }
+function attackPhysicalRoshan(){
+    // how much damage does this attack do 
+    let attack = roshanBaseAttackDamage;
+    totalDamageDoneOnEmber += attack;
+    document.querySelector('.damage-done').innerHTML = totalDamageDoneOnEmber;
+        ember.health -= attack;
+        alert(`Roshan has attacked you for  ${attack} damage and has decreased your health by ${(attack/(ember.health+attack) * 100).toFixed(2)}% `)  
+        document.querySelector('.damage-done').innerHTML = `Physical damage done this turn: ${attack}`;
+        document.querySelector('.percentage-health-this-attack-on-ember').innerHTML = `Percent of health damaged: ${(attack/(ember.health + attack) * 100).toFixed(2)}%`;
+        document.querySelector('.percentage-health-total').innerHTML = `Percentage of health roshan has left: ${Math.abs((totalDamageDoneOnEmber - 10000))/100}%`;
+        document.querySelector('.ember-health').innerHTML = `${ember.health}`;
+        document.querySelector('.roshan-health').innerHTML = `${roshan.health}`;
+        checkWinner();
+        action +=1;
+        checkAction();
+        healthRegen();
+        
+}
 
 
 
-// function attackMagicalRoshan(){
-//     let attack =  Math.floor(Math.random() * 1600);
-//     totalDamageDone += attack;
-//     document.querySelector('.damage-done').innerHTML = totalDamageDone;
-//     ember.health -= attack;
-//     alert(`YOU JUST DID ${attack} DAMAGE AND DECREASED ROSHAN'S HEALTH BY ${(attack/(roshan.health+attack) * 100).toFixed(2)}% `);
-//     document.querySelector('.damage-done').innerHTML = `Magic damage done this turn: ${attack}`;
-//     document.querySelector('.percentage-health-this-attack').innerHTML = `Percent of health damaged: ${(attack/(roshan.health + attack) * 100).toFixed(2)}%`;
-//     document.querySelector('.percentage-health-total').innerHTML = `Percentage of health roshan has left: ${Math.abs((totalDamageDone - 10000))/100}%`;
-//     document.querySelector('.ember-health').innerHTML = `${ember.health}`;
-//     document.querySelector('.roshan-health').innerHTML = `${roshan.health}`;
-//     checkWinner();
-//     action += 1;
-//     checkAction();
-//     healthRegen();
+function attackMagicalRoshan(){
+    let attack =  Math.floor(Math.random() * 1600);
+    totalDamageDoneOnEmber += attack;
+    document.querySelector('.damage-done').innerHTML = totalDamageDoneOnEmber;
+    ember.health -= attack;
+    alert(`YOU JUST DID ${attack} DAMAGE AND DECREASED ROSHAN'S HEALTH BY ${(attack/(ember.health+attack) * 100).toFixed(2)}% `);
+    document.querySelector('.damage-done').innerHTML = `Magic damage done this turn: ${attack}`;
+    document.querySelector('.percentage-health-this-attack-on-ember').innerHTML = `Percent of health damaged: ${(attack/(roshan.health + attack) * 100).toFixed(2)}%`;
+    document.querySelector('.percentage-health-total').innerHTML = `Percentage of health roshan has left: ${Math.abs((totalDamageDoneOnEmber - 10000))/100}%`;
+    document.querySelector('.ember-health').innerHTML = `${ember.health}`;
+    document.querySelector('.roshan-health').innerHTML = `${roshan.health}`;
+    checkWinner();
+    action += 1;
+    checkAction();
+    healthRegen();
     
-// }
+    
+}
 
 
 function roll(){
@@ -234,11 +238,15 @@ function healthRegen(){
         
     }
 }
+
 function checkAction(){
     if(action < 2){
         document.querySelector('.turn-displayer').innerHTML = 'Ember';
     }else if (action >= 2 && action < 4){
         document.querySelector('.turn-displayer').innerHTML = 'Roshan';
+        document.querySelector('button.attack-physical').disabled = true;
+        document.querySelector('button.attack-magical').disabled = true;
+        document.querySelector('button.drink-whiteclaw').disabled = true;
     }else if(action >= 4){
        if(action === 4){
            alert(`Roshan's health has regenerated by 4%`);
@@ -248,6 +256,14 @@ function checkAction(){
         }
         action = 0;
         document.querySelector('.turn-displayer').innerHTML = 'Ember';
+    }
+
+}
+
+function roshansTurn(){
+    if(action >= 2 && action < 4){
+        setTimeout(attackPhysicalRoshan(),3000);
+        setTimeout(attackMagicalRoshan(), 6000);
     }
 }
 
