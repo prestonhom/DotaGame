@@ -13,17 +13,25 @@
     <header>
         <div class ='ember-score'>
             <h1>Ember Score </h1>
-            <p class='ember-score-counter'>  </p>
-
+            <p class='ember-score-counter'> 0 </p>
+            <h3>HEALTH </h3>
+            <p class ='ember-health'>5000</p>
+            <meter id='ember-health-meter'max= 5000 min=0  value= 5000 high= 5000 low=0 >  </meter>
+            
         </div>
         <div>
             <h1>Turn Displayer</h1>
-            <p class='turn-displayer'></p>    
+            <p class='turn-displayer'>Ember</p>    
+            
         </div>
+        
         
         <div class ='roshan-score'> 
             <h1>Roshan Score </h1>
-            <p class='roshan-score-counter'> </p>
+            <p class='roshan-score-counter'> 0</p>
+            <h3>HEALTH </h3>
+            <p class ='roshan-health'>10000</p>
+            <meter id='roshan-health-meter' max=10000 min=0.0 value=10000  high=10000 low=0>  </meter>
         </div>
     </header>
     <main>
@@ -40,17 +48,19 @@
         </div>
     </main>
     <footer>
-        <div class='special'>Special </div>
+        
+
         <div id='attack-buttons'>
             <button class='attack-physical'>Physical Attack</button>
             <button class='attack-magical'>Magical Attack</button>
+            <button class='drink-whiteclaw'>Drink WhiteClaw</button>
         </div>        
         <div>
-        <h2 id='action counter'> Action counter</h2>
-            <p class='damage-done'></p>
-            <p class='percentage-health-this-attack'>0</p>
-            <p class='percentage-health-total'></p>
-            <p class='magic-damage-done'></p>
+            <h2 id='action counter'> Action counter</h2>
+                <p class='damage-done'></p>
+                <p class='percentage-health-this-attack-on-roshan'>0</p>
+                <p class='percentage-health-total'></p>
+                <p class='total-damage-done'></p>
         </div> 
     </footer>
 </body>

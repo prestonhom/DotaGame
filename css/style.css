@@ -13,18 +13,28 @@ body {
 }
 header{
     display:flex;
-    height:30vh;
+    height:35vh;
     background-color: blue;
     flex-direction: row;
     justify-content: space-evenly;
 
 }
 header div{
-    margin:20px;
+    margin:0 auto;
+    height:20vh;
 }
 header #turn-displayer{
     font-family: 'Anton', sans-serif;
     
+}
+p.turn-displayer{
+    font-size: 50px;
+}
+header .health-bar{
+    display: flex;
+}
+meter{
+    background-color:r
 }
 main{
     width:100%;
@@ -54,7 +64,9 @@ footer #attack-buttons button{
     border-radius: 20px;
     font-size:20px;
     font-family: 'Anton', sans-serif;
+    
 }
 footer #attack-buttons button:hover {
     cursor: pointer;
+    background-color:red;
 }
