@@ -10,18 +10,21 @@
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/8bit-wonder" type="text/css"/>
     <script defer src='js/app.js'></script>
 </head>
-<body>
+<body id='body'>
     <header>
         <div class ='ember-score'>
             <h1>Ember Score </h1>
             <p class='ember-score-counter'> 0 </p>
             <p class= 'health'>HEALTH: <span class ='ember-health'>5000</span></p>
+            
             <meter id='ember-health-meter'max= 5000 min=0  value=5000 high= 5000 low=2499 >  </meter>
             
         </div>
         <div id='middle-header'>
+            
             <h1 class ='action'> BATTLE HOST SAYS</h1>
             <p class='turn-displayer'>Ember</p>    
+            <button class='start-game'> Start Game</button>
             
         </div>
         
@@ -50,7 +53,7 @@
             <button class='attack-physical'>Physical Attack</button>
             <button class='attack-magical'>Magical Attack</button>
             <!-- <button class='drink-whiteclaw'>Drink WhiteClaw</button> -->
-            <button class='start-game'> Start Game</button>
+            
             <audio id='ceeb'>
                 <source src='sounds/ceeb.mp3'>
             </audio>

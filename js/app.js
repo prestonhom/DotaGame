@@ -118,13 +118,13 @@ function init(){
     
     totalDamageDoneOnEmber = 0;
     percentangeDamageEmber = ((totalDamageDoneOnEmber/ember.health) * 100).toFixed(2);
-
-    document.querySelector('.attack-physical').style.visibility ='hidden';
-    document.querySelector('.attack-magical').style.visibility ='hidden';
-    
+    document.getElementById('body').style.visibility = 'hidden';
+   
     // document.getElementById('fireball').style.visibility = "hidden";
     // document.getElementById('fireball').style.animationPlayState = "paused";
-  
+    document.querySelector('.attack-magical').disabled = true;
+    document.querySelector('.attack-physical').disabled = true;
+   
     
 
 }
@@ -406,6 +406,11 @@ function roshanClaim(){
 }
 function hideStartGame(){
     this.style.visibility = 'hidden';
-    document.querySelector('button.attack-physical').style.visibility = 'visible';
-    document.querySelector('button.attack-magical').style.visibility = 'visible';
+    // document.querySelector('button.attack-physical').style.visibility = 'visible';
+    // document.querySelector('button.attack-magical').style.visibility = 'visible';
+    document.getElementById('body').style.visibility = 'visible';
+    setTimeout(function(){
+        document.querySelector('.attack-magical').disabled = false;
+        document.querySelector('.attack-physical').disabled = false;
+    }, 5000);
 }
