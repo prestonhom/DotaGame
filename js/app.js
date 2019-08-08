@@ -41,6 +41,8 @@ let ember,
     
     roshan = {
         health: 10000,
+        physDamage: attackPhysicalRoshan,
+        magicDamage: attackMagicalEmber
         // physDamage: function(){
         //     ember.health -= 400;
         // },
@@ -50,8 +52,8 @@ let ember,
         // magicDamage: Math.floor(Math.random() * 801)
     }
     
-    action = 1; 
-    
+    action = 0; 
+    console.log(action);
     totalDamageDoneOnRoshan = 0;
     percentangeDamageOnRoshan = ((totalDamageDoneOnRoshan/roshan.health) * 100).toFixed(2);
 
@@ -59,14 +61,23 @@ let ember,
     percentangeDamageEmber = ((totalDamageDoneOnEmber/ember.health) * 100).toFixed(2);
     
 /*----- cached element references -----*/
+let damageDone = document.querySelector('.damage-done');
+let physicalAttackButton = document.querySelector('.attack-physical');
+let magicalAttackButton = document.querySelector('.attack-magical');
+let startGame = document.querySelector('.start-game');
 
 /*----- event listeners -----*/
-let physicalAttackButton = document.querySelector('.attack-physical');
 physicalAttackButton.addEventListener('click', ember.physDamage);
-physicalAttackButton.addEventListener('click', activateFireball);
+// physicalAttackButton.addEventListener('click', activateFireball);
 
-let magicalAttackButton = document.querySelector('.attack-magical');
 magicalAttackButton.addEventListener('click', ember.magicDamage);
+
+startGame.addEventListener('click', roshanClaim);
+startGame.addEventListener('click', hideStartGame);
+
+
+
+
 
 
 
@@ -107,6 +118,9 @@ function init(){
     
     totalDamageDoneOnEmber = 0;
     percentangeDamageEmber = ((totalDamageDoneOnEmber/ember.health) * 100).toFixed(2);
+
+    document.querySelector('.attack-physical').style.visibility ='hidden';
+    document.querySelector('.attack-magical').style.visibility ='hidden';
     
     // document.getElementById('fireball').style.visibility = "hidden";
     // document.getElementById('fireball').style.animationPlayState = "paused";
@@ -116,6 +130,7 @@ function init(){
 }
 ////initializes the page
 init();
+
 
 // function render(){
 //     if(ember.health > 0 && roshan.health > 0){
@@ -135,7 +150,6 @@ function attackPhysicalEmber(){
     totalDamageDoneOnRoshan += attack;
     document.querySelector('.damage-done').innerHTML = totalDamageDoneOnRoshan;
     roshan.health -= attack;
-     
     document.querySelector('.damage-done').innerHTML = `Physical damage done this turn: ${attack}`;
     document.querySelector('.percentage-health-this-attack-on-roshan').innerHTML = `Percent of health damaged: ${(attack/(roshan.health + attack) * 100).toFixed(2)}%`;
     document.querySelector('.percentage-health-total').innerHTML = `Percentage of health roshan has left: ${Math.abs((totalDamageDoneOnRoshan - 10000))/100}%`;
@@ -145,14 +159,15 @@ function attackPhysicalEmber(){
     document.getElementById('roshan-health-meter').value = `${roshan.health - attack}`;
     
     healthMeter();
-    document.querySelector('p.turn-displayer').innerHTML = (` ${attack} physical damage`);
+    document.querySelector('p.turn-displayer').innerHTML = (`${attack} physical damage`);
     checkWinner();
     
-    if(action === 0 ){
-        action +=1;
+    if(action === 0){
+        action += 1;
     }else if(action === 1){
         action += 2;
     }
+
     console.log(action);
     checkAction();
     healthRegen();
@@ -238,6 +253,9 @@ function attackMagicalRoshan(){
     document.querySelector('.roshan-health').innerHTML = `${roshan.health}`;
     document.getElementById('ember-health-meter').value = `${ember.health - attack}`;
     healthMeter();
+    
+        document.querySelector('p.turn-displayer').innerHTML = (`Roshan just did ${attack + roshanBaseAttakDamage} this turn`);
+    
     checkWinner();
     if(action === 3){
         action +=1;
@@ -265,10 +283,10 @@ function checkWinner(){
     if(ember.health <= 0 && roshan.health > 0){
         playTrombone();
         playTeammates();
-        alert(`Winner is Roshan!! YOU LOSE`)
+        document.querySelector('p.turn-displayer').innerHTML ='ROSHAN WINS YOU LOSE!';
         roshanBattleScore += 1;
         roshanBattleScore.innerHTML++;
-        init();
+        // init();
         document.querySelector('p.ember-health').innerHTML = '5000';
     }
     
@@ -276,7 +294,7 @@ function checkWinner(){
         playCheer();
         playBelieve();
         emberBattleScore.innerHTML++;
-        init();
+        // init();
         document.querySelector('p.turn-displayer').innerHTML = 'VICTORY! YOU WIN'; 
         document.querySelector('p.roshan-health').innerHTML = '10000';
     }
@@ -311,7 +329,7 @@ function checkAction(){
             
         }
         
-        action = 0;
+        
         document.querySelector('.turn-displayer').innerHTML = 'Ember';
     }
 
@@ -321,14 +339,23 @@ function activateFireball(){
     let fireball = document.getElementById('fireball');
     // fireball.style.visibility = "visible";
     fireball.style.animationPlayState = "running";  
+
+    setTimeout(function() {
+        fireball.style.animationPlayState = "paused";  
+    }, 3000);
 }
 
 function roshansTurn(){
     if(action >= 2 && action < 4){
-        attackPhysicalRoshan();
-        attackMagicalRoshan();
+        setTimeout(function() {
+            attackPhysicalRoshan();
+        }, 1500);
+        setTimeout(function() {
+            attackMagicalRoshan();
+        }, 4000);
     }
 }
+
 
 // function checkWhiteClaw(){
 //     if(action === 1){
@@ -372,4 +399,13 @@ function playMagic(){
 function playBelieve(){
     var audio = new Audio("sounds/believe.mp3");
     audio.play();
+}
+function roshanClaim(){
+    var audio = new Audio("sounds/roshanClaim.mp3");
+    audio.play();
+}
+function hideStartGame(){
+    this.style.visibility = 'hidden';
+    document.querySelector('button.attack-physical').style.visibility = 'visible';
+    document.querySelector('button.attack-magical').style.visibility = 'visible';
 }
