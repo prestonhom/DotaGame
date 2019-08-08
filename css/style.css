@@ -28,45 +28,48 @@ header div{
     margin-left: 0;
     height:20vh;
 }
+
 header #turn-displayer{
     /* font-family: 'Anton', sans-serif; */
     
 }
+
 p.turn-displayer{
     font-size: 30px;
+    margin-top:50px;
 }
 
 p.turn-displayer{
     
-        -webkit-animation: 2s linear infinite condemned_blink_effect; 
-        animation: 2s linear infinite condemned_blink_effect;
+        -webkit-animation: 3s linear infinite condemned_blink_effect; 
+        animation: 3s linear infinite condemned_blink_effect;
       
 }
-@-webkit-keyframes condemned_blink_effect { 
-    0% {
-      visibility: hidden;
-    }
-    50% {
-      visibility: hidden;
-    }
-    100% {
-      visibility: visible;
-    }
-  }
+
   @keyframes condemned_blink_effect {
     0% {
       visibility: hidden;
     }
+    25% {
+      visibility: hidden;
+      color: yellow;
+    }
     50% {
       visibility: hidden;
+      color:red;
     }
     100% {
       visibility: visible;
+      color:orange;
     }
 }
 
 header .health-bar{
     display: flex;
+}
+#middle-header{
+    padding:20px;
+    margin 0 auto;
 }
 meter::-webkit-meter-bar{
     height:30px;
@@ -167,14 +170,14 @@ footer{
 }
 
 footer #attack-buttons{
-    margin-left: 50px 0 0 0;
+    margin: 50px 100px 0 0;
 
 
 }
 footer #attack-buttons button{
     /* display:inline-block; */
     height: 10vh;
-    margin: 50px 0 0 0;
+    margin: 0 0 0 0;
     width:20vw;
     border-radius: 20px;
     font-size:15px;
@@ -184,4 +187,18 @@ footer #attack-buttons button{
 footer #attack-buttons button:hover {
     cursor: pointer;
     background-color:red;
+}
+footer #attack-buttons button:hover {
+    cursor: pointer;
+    background-color:red;
+}
+
+#action-counter{
+    background: -webkit-linear-gradient(left, red , yellow);
+    background: -o-linear-gradient(right, red, yellow);
+    background: -moz-linear-gradient(right, red, yellow);
+    background: linear-gradient(to right, red , yellow); 
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   text-shadow: 2px 2px pink;
 }
