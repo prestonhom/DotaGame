@@ -7,6 +7,7 @@
     <title>Dota Game</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/8bit-wonder" type="text/css"/>
     <script defer src='js/app.js'></script>
 </head>
 <body>
@@ -14,9 +15,8 @@
         <div class ='ember-score'>
             <h1>Ember Score </h1>
             <p class='ember-score-counter'> 0 </p>
-            <h3>HEALTH </h3>
-            <p class ='ember-health'>5000</p>
-            <meter id='ember-health-meter'max= 5000 min=0  value= 5000 high= 5000 low=0 >  </meter>
+            <p class= 'health'>HEALTH: <span class ='ember-health'>5000</span></p>
+            <meter id='ember-health-meter'max= 5000 min=0  value= 5000 high= 5000 low=2500 >  </meter>
             
         </div>
         <div>
@@ -29,9 +29,8 @@
         <div class ='roshan-score'> 
             <h1>Roshan Score </h1>
             <p class='roshan-score-counter'> 0</p>
-            <h3>HEALTH </h3>
-            <p class ='roshan-health'>10000</p>
-            <meter id='roshan-health-meter' max=10000 min=0.0 value=10000  high=10000 low=0>  </meter>
+            <p class= 'health'> HEALTH: <span class ='roshan-health'>10000</span></p>
+            <meter id='roshan-health-meter' max=10000 min=0 value=10000  high=10000 low=5000>  </meter>
         </div>
     </header>
     <main>
@@ -39,11 +38,12 @@
         <div id='field'>
             <div id='ember'> 
                 <div id='health-ember'></div>
-                <!-- <img class='emberImage' src="images/emberSpirit.jpg" height="500" width="500" alt=""> -->
+                <img class='emberImage' src="images/emberSpirit.svg" height="100px" width="50px" alt="">
+                <img id='fireball' src='images/fireball.svg'>
             </div>
             <div id='roshan'>
-                <div id='healthbar-ember'>healthbar</div>
-                <!-- <img class='roshanImage' src="images/roshan.png" alt=""> -->
+                <div id='healthbar-ember'>field</div>
+                <img class='roshan-image' src="images/roshan.png" height= 100px alt="">
             </div>
         </div>
     </main>
@@ -56,7 +56,7 @@
         </div>        
 
         <div>
-            <h2 id='action counter'> Turn Recap </h2>
+            <h2 id='action-counter'> Fight Recap</h2>
                 <p class='damage-done'></p>
                 <p class='percentage-health-this-attack-on-roshan'></p>
                 <p class='percentage-health-this-attack-on-ember'></p>

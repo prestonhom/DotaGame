@@ -1,5 +1,8 @@
 * {
     box-sizing:border-box;   
+    font-family: '8BITWONDERNominal'; 
+    font-weight: normal; 
+    font-style: normal; 
 }
 body {
     display:grid;
@@ -22,6 +25,7 @@ header{
 }
 header div{
     margin:0 auto;
+    margin-left: 0;
     height:20vh;
 }
 header #turn-displayer{
@@ -34,8 +38,20 @@ p.turn-displayer{
 header .health-bar{
     display: flex;
 }
-meter{
+meter::-webkit-meter-bar{
+    height:30px;
+    width: 300px;
+    border: 5px solid orange;
+    border-radius: 5px;
     
+}
+
+meter::-webkit-meter-optimum-value{
+    background:green;
+}
+
+meter::-webkit-meter-suboptimum-value{
+    background:yellow;
 }
 main{
     display:grid;
@@ -47,23 +63,57 @@ main{
     background-position: center bottom;
     
 }
-/* 
-main img{
-    height:auto;
-    width:1440px;    
-} */
+
+main {
+   border: 5px solid white;
+}
 
 #fireball {
     width: 100px;
     height: 100px;
-    background:transparent;
-    position :relative;
-    animation: fireball 5s;
-    animation-duration: 10s;
+    background: transparent;
+    position : relative;
+    left: 0px;
+    animation: fireball 3s linear 1 paused;
+    /* visibility: hidden; */
+    opacity: 0;
 }
 @keyframes fireball {
-    from {left: 0px;}
-    to {left: 900px;}
+    0% {
+        left: 0px;
+        /* visibility: hidden; */
+        opacity: 0;
+    }
+    2% {
+        left: 18px;
+        /* visibility: visible; */
+        opacity: .2;
+    }
+    4% {
+        left: 36px;
+        /* visibility: visible; */
+        opacity: .4;
+    }
+    6% {
+        left: 54px;
+        /* visibility: visible; */
+        opacity: .6;
+    }
+    8% {
+        left: 72px;
+        /* visibility: visible; */
+        opacity: .8;
+    }
+    10% {
+        left: 90px;
+        /* visibility: visible; */
+        opacity: 1;
+    }
+    100% {
+        left: 900px;
+        /* visibility: hidden; */
+        opacity: 1;
+    }
 }
 .roshan {
     margin:
@@ -75,6 +125,7 @@ footer{
     background-color: transparent;
     justify-content: center;
     height: 30vh;
+    color: white;
 }
 
 footer #attack-buttons{
