@@ -29,8 +29,8 @@ let ember,
 
 
     ////
-    emberBaseAttackDamage = 800;
-    roshanBaseAttackDamage = 400;
+    emberBaseAttackDamage;
+    roshanBaseAttackDamage;
     round = 0;
     battleScoreEmber = 0;
     battleScoreRoshan = 0;
@@ -120,7 +120,7 @@ function init(){
     winner = null;
     
     
-    emberBaseAttackDamage = 1000;
+    emberBaseAttackDamage = 9000;
     roshanBaseAttackDamage = 400;
     
     totalDamageDoneOnRoshan = 0;
@@ -210,9 +210,7 @@ function attackMagicalEmber(){
     setTimeout(function(){
         document.querySelector('p.turn-displayer').innerHTML = (`${attack} magic damage`);
     }, 2000);
-    // setTimeout(function(){
-    //     document.querySelector('p.turn-displayer').innerHTML = `Awaiting Ember's Turn`;
-    // },4000);
+    
     checkWinner();
     if(action === 0){
         action += 1;
@@ -317,6 +315,7 @@ function checkWinner(){
         document.querySelector('p.turn-displayer').innerHTML ='ROSHAN WINS YOU LOSE!';
         roshanBattleScore.innerHTML = `${battleScoreRoshan += 1}`;
         resetBoard();
+        
         // document.querySelector('p.ember-health').innerHTML = '5000';
         // setTimeout(function(){
         //     resetBoard();
@@ -329,6 +328,7 @@ function checkWinner(){
         roshanBattleScore.innerHTML = `${battleScoreEmber += 1}`;
         document.querySelector('p.turn-displayer').innerHTML = 'VICTORY! YOU WIN'; 
         resetBoard();
+       
         
         // document.querySelector('p.roshan-health').innerHTML = '10000';
         // setTimeout(function(){
@@ -410,20 +410,6 @@ function roshansTurn(){
 }
 
 
-// function checkWhiteClaw(){
-//     if(action === 1){
-//         document.querySelector(".drink-whiteclaw").disable = false;
-//     }else if (action !== 1){
-//         document.querySelector(".drink-whiteclaw").disable = true;
-//     }
-// }
-//if player drinks WhiteClaw, either Magical or Physical Attack gets amplified by 200 points but current health is reduced by 10% 
-//this must be chosen in the first action and  the button will be disabled if action is at 2
-// function drinkWhiteClaw(){
-
-// }
-
-
 function playCeeb(){
     var audio = new Audio("sounds/ceeb.mp3");
     audio.play();
@@ -458,8 +444,7 @@ function firstBlood(){
 }
 function hideStartGame(){
     this.style.visibility = 'hidden';
-    // document.querySelector('button.attack-physical').style.visibility = 'visible';
-    // document.querySelector('button.attack-magical').style.visibility = 'visible';
+  
     document.getElementById('body').style.visibility = 'visible';
     setTimeout(function(){
         document.querySelector('.attack-magical').disabled = false;
@@ -467,9 +452,9 @@ function hideStartGame(){
     }, 5000);
 }
 function resetBoard(){
-    ember.health = 0;
-    roshan.health =0;
-    action =0;
+    ember.health = 5000;
+    roshan.health =10000;
+    action = 0;
     //when user fnishes attack add 1 to action counter;
     
     
@@ -477,10 +462,26 @@ function resetBoard(){
     roshanBaseAttackDamage = 400;
     
     totalDamageDoneOnRoshan = 0;
-    percentangeDamageOnRoshan = ((totalDamageDoneOnRoshan/roshan.health) * 100).toFixed(2);
+    
+    document.querySelector('.damage-done').innerHTML = totalDamageDoneOnRoshan;
+    
+    document.querySelector('.damage-done').innerHTML = 0;
+    document.querySelector('.percentage-health-this-attack-on-roshan').innerHTML = 0;
+    document.querySelector('.percentage-health-total').innerHTML = 0;
+    document.querySelector('.damage-done').innerHTML = 0;
+    document.querySelector('.ember-health').innerHTML = 5000;
+    document.querySelector('.roshan-health').innerHTML = 10000;
+    document.querySelector('.total-damage-done').innerHTML = 0;
+    document.getElementById('roshan-health-meter').value = 10000;
     
     totalDamageDoneOnEmber = 0;
-    percentangeDamageEmber = ((totalDamageDoneOnEmber/ember.health) * 100).toFixed(2);
+    document.querySelector('.total-damage-done').innerHTML = 0;
+    document.querySelector('.damage-done').innerHTML = 0;
+    document.querySelector('.percentage-health-this-attack-on-ember').innerHTML = 0;
+    document.querySelector('.percentage-health-total').innerHTML = 0;
+    document.getElementById('ember-health-meter').value = 5000;
+
+    
     document.querySelector('.attack-magical').disabled = true;
     document.querySelector('.attack-physical').disabled = true;
     document.getElementById('body').style.visibility = 'hidden';
@@ -490,8 +491,7 @@ function resetBoard(){
 
 function hidePlayAgain(){
     this.style.visibility = 'hidden';
-    // document.querySelector('button.attack-physical').style.visibility = 'visible';
-    // document.querySelector('button.attack-magical').style.visibility = 'visible';
+
     document.getElementById('body').style.visibility = 'visible';
     setTimeout(function(){
         document.querySelector('.attack-magical').disabled = false;
