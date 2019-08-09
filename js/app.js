@@ -1,7 +1,7 @@
 /*----- constants -----*/
 
    
-     /*----- app's state (variables) -----*/
+  /*----- app's state (variables) -----*/
 let ember,
     roshan, 
     action, 
@@ -307,11 +307,7 @@ function checkAction(){
         document.querySelector('button.attack-physical').disabled = true;
         document.querySelector('button.attack-magical').disabled = true;
     }
-    else if(ember.health <= 0 || roshan.health <=0){
-        return;
-    }
-    
-
+   
 }
 
 function activateFireball(){
