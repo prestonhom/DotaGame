@@ -54,14 +54,17 @@ p.turn-displayer{
     25% {
       visibility: hidden;
       color: yellow;
+      text-shadow: 2px 2px white;
     }
     50% {
       visibility: hidden;
       color:red;
+      text-shadow: 2px 2px white;
     }
     100% {
       visibility: visible;
       color:orange;
+      text-shadow: 2px 2px white;
     }
 }
 
@@ -181,14 +184,19 @@ footer #attack-buttons button{
     font-size:15px;
     /* font-family: 'Anton', sans-serif; */
     
+    
 }
 footer #attack-buttons button:hover {
     cursor: pointer;
     background-color:red;
+    color:white;
+    text-shadow: 2px 2px black;
 }
 footer #attack-buttons button:hover {
     cursor: pointer;
     background-color:red;
+    color:white;
+    text-shadow: 2px 2px black;
 }
 
 #action-counter{
