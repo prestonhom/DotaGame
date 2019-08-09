@@ -9,14 +9,12 @@ let ember,
     
     ////////ember damage stuff
     emberBaseAttackDamage, 
-    emberBaseMagicalDamage,
     totalDamageDoneOnRoshan, 
     percentageDamageOnRoshan,
 
 
     ////////roshan damage stuff
     roshanBaseAttackDamage,
-    roshanBaseMagicalDamge,
     totalDamageDoneOnEmber,
     percentageDamageonEmber;
 
@@ -151,7 +149,7 @@ function attackMagicalEmber(){
 
     playMagic();
     activateLightning();
-    let attack =  Math.floor(Math.random() * 1600);
+    let attack =  Math.floor(Math.random() * 2000);
     totalDamageDoneOnRoshan += attack;
     roshan.health -= attack;
     document.querySelector('.damage-done').innerHTML = totalDamageDoneOnRoshan;
