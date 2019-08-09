@@ -1,37 +1,29 @@
 /*----- constants -----*/
 
-    // const CHARACTER = {
-    //     'p': 'ember',
-    //     'c': 'roshan'
-    // }
-        // }
-        
+   
      /*----- app's state (variables) -----*/
 let ember,
     roshan, 
     action, 
-    turn, 
-    round, 
-    battles, 
-    winner, 
+    
+    
     ////////ember damage stuff
     emberBaseAttackDamage, 
     emberBaseMagicalDamage,
     totalDamageDoneOnRoshan, 
-    percentangeDamageOnRoshan,
+    percentageDamageOnRoshan,
 
 
     ////////roshan damage stuff
     roshanBaseAttackDamage,
     roshanBaseMagicalDamge,
     totalDamageDoneOnEmber,
-    percentangeDamageonEmber;
+    percentageDamageonEmber;
 
 
     ////
     emberBaseAttackDamage;
     roshanBaseAttackDamage;
-    round = 0;
     battleScoreEmber = 0;
     battleScoreRoshan = 0;
     ember = {
@@ -44,22 +36,15 @@ let ember,
         health: 10000,
         physDamage: attackPhysicalRoshan,
         magicDamage: attackMagicalRoshan,
-        // physDamage: function(){
-        //     ember.health -= 400;
-        // },
-        // healthRegen: function(){
-        //     this.health *= 1.03;
-        // },
-        // magicDamage: Math.floor(Math.random() * 801)
+       
     }
     
     action = 0; 
-    console.log(action);
     totalDamageDoneOnRoshan = 0;
-    percentangeDamageOnRoshan = ((totalDamageDoneOnRoshan/roshan.health) * 100).toFixed(2);
+    percentageDamageOnRoshan = ((totalDamageDoneOnRoshan/roshan.health) * 100).toFixed(2);
 
     totalDamageDoneOnEmber = 0;
-    percentangeDamageEmber = ((totalDamageDoneOnEmber/ember.health) * 100).toFixed(2);
+    percentageDamageEmber = ((totalDamageDoneOnEmber/ember.health) * 100).toFixed(2);
     
 /*----- cached element references -----*/
 let damageDone = document.querySelector('.damage-done');
@@ -73,7 +58,7 @@ let playAgain = document.querySelector('.play-again');
 
 /*----- event listeners -----*/
 physicalAttackButton.addEventListener('click', ember.physDamage);
-// physicalAttackButton.addEventListener('click', activateFireball);
+physicalAttackButton.addEventListener('click', activateFireball);
 
 magicalAttackButton.addEventListener('click', ember.magicDamage);
 
@@ -83,20 +68,6 @@ startGame.addEventListener('click', hideStartGame);
 playAgain.addEventListener('click',firstBlood)
 playAgain.addEventListener('click',hidePlayAgain);
 
-
-
-
-
-
-
-
-
-// let armor = document.getElementById('armor');
-// armor.addEventListener('click', function(){
-
-    
-    // let rollDice = document.getElementById('roll');
-    // rollDice.addEventListener('click', roll);
     /*----- functions -----*/
 ///initialize state variables
 function init(){
@@ -114,45 +85,33 @@ function init(){
     }
     action =0;
     //when user fnishes attack add 1 to action counter;
-    round = 0;
-    turn = 0;
-    round = 0;
-    winner = null;
+
     
     
-    emberBaseAttackDamage = 9000;
+    emberBaseAttackDamage = 1000;
     roshanBaseAttackDamage = 400;
     
     totalDamageDoneOnRoshan = 0;
-    percentangeDamageOnRoshan = ((totalDamageDoneOnRoshan/roshan.health) * 100).toFixed(2);
+    percentageDamageOnRoshan = ((totalDamageDoneOnRoshan/roshan.health) * 100).toFixed(2);
     
     totalDamageDoneOnEmber = 0;
-    percentangeDamageEmber = ((totalDamageDoneOnEmber/ember.health) * 100).toFixed(2);
+    percentageDamageEmber = ((totalDamageDoneOnEmber/ember.health) * 100).toFixed(2);
     document.getElementById('body').style.visibility = 'hidden';
-   
-    // document.getElementById('fireball').style.visibility = "hidden";
-    // document.getElementById('fireball').style.animationPlayState = "paused";
+    
     document.querySelector('.attack-magical').disabled = true;
     document.querySelector('.attack-physical').disabled = true;
    
-    
-
 }
 ////initializes the page
 init();
 
-
-
-
 function attackPhysicalEmber(){
     // how much damage does Ember's physical attack button do 
-    // document.querySelector('.attack-magical').disabled = true;
     playCeeb();
     activateFireball();
     //update Roshan health stats pull data from there
     let attack = emberBaseAttackDamage;
     totalDamageDoneOnRoshan += attack;
-    document.querySelector('.damage-done').innerHTML = totalDamageDoneOnRoshan;
     roshan.health -= attack;
 
     document.querySelector('.damage-done').innerHTML = `Physical damage done this turn: ${attack}`;
@@ -160,7 +119,7 @@ function attackPhysicalEmber(){
     document.querySelector('.percentage-health-total').innerHTML = `Percentage of health roshan has left: ${Math.abs((totalDamageDoneOnRoshan - 10000))/100}%`;
     document.querySelector('.total-damage-done').innerHTML = `Total damage done: ${totalDamageDoneOnRoshan}`;
     document.querySelector('.ember-health').innerHTML = `${ember.health}`;
-    document.querySelector('.roshan-health').innerHTML = `${roshan.health}`;
+    document.querySelector('.roshan-health').innerHTML = `${roshan.health.toFixed(2)}`;
     document.getElementById('roshan-health-meter').value = `${roshan.health - attack}`;
 
     setTimeout(function(){
@@ -175,7 +134,6 @@ function attackPhysicalEmber(){
         document.querySelector('p.turn-displayer').innerHTML = `Awaiting Ember's Turn`;
     },3500);
     }else if(action === 1){
-       
         action +=2;
         setTimeout(function(){
             document.querySelector('p.turn-displayer').innerHTML = `Roshan is Attacking`;
@@ -185,15 +143,14 @@ function attackPhysicalEmber(){
     console.log(action);
     checkAction();
     healthRegen();
+    
     roshansTurn();
-
-
     }
    
-
-
 function attackMagicalEmber(){
+
     playMagic();
+    activateLightning();
     let attack =  Math.floor(Math.random() * 1600);
     totalDamageDoneOnRoshan += attack;
     roshan.health -= attack;
@@ -204,7 +161,7 @@ function attackMagicalEmber(){
     document.querySelector('.percentage-health-total').innerHTML = `Percentage of health roshan has left: ${Math.abs((totalDamageDoneOnRoshan - 10000))/100}%`;
     document.querySelector('.damage-done').innerHTML = `Magic damage done this turn: ${totalDamageDoneOnRoshan}`;
     document.querySelector('.ember-health').innerHTML = `${ember.health}`;
-    document.querySelector('.roshan-health').innerHTML = `${roshan.health}`;
+    document.querySelector('.roshan-health').innerHTML = `${roshan.health.toFixed(2)}`;
     document.querySelector('.total-damage-done').innerHTML = `Total damage done: ${totalDamageDoneOnRoshan}`;
     document.getElementById('roshan-health-meter').value = `${roshan.health - attack}`
     setTimeout(function(){
@@ -225,10 +182,8 @@ function attackMagicalEmber(){
     }
     checkAction();
     healthRegen();
+
     roshansTurn();
-    
-    
-    
     
 }
 function attackPhysicalRoshan(){
@@ -237,8 +192,6 @@ function attackPhysicalRoshan(){
     totalDamageDoneOnEmber += attack;
     document.querySelector('.total-damage-done').innerHTML = totalDamageDoneOnEmber;
     ember.health -= attack;
-    // alert(`Roshan has attacked you for  ${attack} damage and has decreased your health by ${(attack/(ember.health+attack) * 100).toFixed(2)}% `)  
-    //action recap
     document.querySelector('.damage-done').innerHTML = `Physical damage done this turn: ${attack}`;
     document.querySelector('.percentage-health-this-attack-on-ember').innerHTML = `Percent of health damaged: ${(attack/(ember.health + attack) * 100).toFixed(2)}%`;
     document.querySelector('.percentage-health-total').innerHTML = `Percentage of health ember has left: ${Math.abs((totalDamageDoneOnEmber - 10000))/100}%`;
@@ -260,9 +213,6 @@ function attackPhysicalRoshan(){
     }
     checkAction();
     healthRegen();
-  
-    // document.querySelector('button.drink-whiteclaw').disabled = false;
-  
 }
 
 
@@ -272,7 +222,7 @@ function attackMagicalRoshan(){
     totalDamageDoneOnEmber += attack;
     document.querySelector('.damage-done').innerHTML = totalDamageDoneOnEmber;
     ember.health -= attack;
-    // alert(`Roshan has just done ${attack} magic damage and decreased Ember's health with ${(attack/(ember.health+attack) * 100).toFixed(2)}% `);
+   
     document.querySelector('.damage-done').innerHTML = `Magic damage done this turn: ${attack}`;
     document.querySelector('.percentage-health-this-attack-on-ember').innerHTML = `Percent of health damaged: ${(attack/(roshan.health + attack) * 100).toFixed(2)}%`;
     document.querySelector('.percentage-health-total').innerHTML = `Percentage of health ember has left: ${Math.abs((totalDamageDoneOnEmber - 10000))/100}%`;
@@ -284,7 +234,6 @@ function attackMagicalRoshan(){
     setTimeout(function(){
         document.querySelector('p.turn-displayer').innerHTML = (`Roshan did ${attack + roshanBaseAttackDamage} damage this turn`);
     },8000);
-    
     setTimeout(function(){
         document.querySelector('.attack-magical').disabled = false;
     }, 8000)
@@ -299,9 +248,6 @@ function attackMagicalRoshan(){
     }
     checkAction();
     healthRegen();
-    // document.querySelector('button.drink-whiteclaw').disabled = false;
-   
-    
     
 }
 
@@ -312,104 +258,91 @@ function checkWinner(){
     if(ember.health <= 0 && roshan.health > 0){
         playTrombone();
         playTeammates();
-        document.querySelector('p.turn-displayer').innerHTML ='ROSHAN WINS YOU LOSE!';
         roshanBattleScore.innerHTML = `${battleScoreRoshan += 1}`;
         resetBoard();
+        document.getElementById('body').style.visibility = 'hidden';
+        document.querySelector('.play-again').style.visibility = 'visible';
+        document.getElementById('fight-recap').style.visibility = 'hidden';
+        document.querySelector('p.turn-displayer').innerHTML ='ROSHAN WINS YOU LOSE!';
         
-        // document.querySelector('p.ember-health').innerHTML = '5000';
-        // setTimeout(function(){
-        //     resetBoard();
-        // },3000); 
     }
     
     else if(roshan.health <= 0 && ember.health > 0){
         playCheer();
         playBelieve();
-        roshanBattleScore.innerHTML = `${battleScoreEmber += 1}`;
-        document.querySelector('p.turn-displayer').innerHTML = 'VICTORY! YOU WIN'; 
+        emberBattleScore.innerHTML = `${battleScoreEmber += 1}`;
+        document.getElementById('body').style.visibility = 'hidden';
+        document.querySelector('.play-again').style.visibility = 'visible';
+        document.getElementById('fight-recap').style.visibility = 'hidden';
         resetBoard();
-       
-        
-        // document.querySelector('p.roshan-health').innerHTML = '10000';
-        // setTimeout(function(){
-        //     resetBoard();
-        // },3000); 
+        document.querySelector('p.turn-displayer').innerHTML = 'VICTORY! YOU WIN'; 
     }
     
 }
 
 
 function healthRegen(){
-    if(action === 2){
-        alert(`Ember's health has been regenerated by 3% or ${ember.health *.03}`)
+
+    if(action === 1){
         ember.health *= 1.03;
-        let emberHealth =document.getElementById('ember-health-meter')
-        emberHealth.value = (ember.health * 1.03);
-        
+    }else if(action ===3){
+        roshan.health *= 1.04;        
     }
 }
 
 function checkAction(){
-    if(action ===0){
+    if(action ===0 && ember.health >0 && roshan.health>0){
         setTimeout(function(){
             document.querySelector('.turn-displayer').innerHTML =`AWAITING EMBER'S TURN`;
         },10000);
     }
-    else if(action === 1 && action <=2){
+    else if(action === 1 && action <=2 && ember.health>0 && roshan.health>0){
         document.querySelector('.turn-displayer').innerHTML = `Ember is attacking`;
     }else if(action >2){
         document.querySelector('button.attack-physical').disabled = true;
         document.querySelector('button.attack-magical').disabled = true;
     }
-    else if (action >=3 && action <=4){
-        
+    else if (action >=3 && action <=4 && ember.health>0 && roshan.health>0){
         setTimeout(function(){
             document.querySelector('p.turn-displayer').innerHTML = 'Roshan is attacking';
         }, 2000);
         document.querySelector('button.attack-physical').disabled = true;
         document.querySelector('button.attack-magical').disabled = true;
-        // document.querySelector('button.drink-whiteclaw').disabled = true;
-    }else if(action >= 4){
-       if(action === 4){
-           alert(`Roshan's health has regenerated by 4%`);
-            roshan.health *= 1.04;
-            let roshanHealth = document.getElementById('roshan-health-meter')
-            roshanHealth.value = (roshan.health * 1.04);
-            
-        }
-        
-        
-        document.querySelector('.turn-displayer').innerHTML = 'Ember';
     }
+    else if(ember.health <= 0 || roshan.health <=0){
+        return;
+    }
+    
 
 }
 
 function activateFireball(){
     let fireball = document.getElementById('fireball');
-    // fireball.style.visibility = "visible";
     fireball.style.animationPlayState = "running";  
-
     setTimeout(function() {
         fireball.style.animationPlayState = "paused";  
     }, 3000);
 }
+function activateLightning(){
+    let lightning= document.getElementById('lightning');
+    lightning.style.animationPlayState = "running";  
+    setTimeout(function() {
+        lightning.style.animationPlayState = "paused";  
+    }, 3000);
+}
 
 function roshansTurn(){
-    // document.querySelector(',attack-magical').disabled = true;
-    // document.querySelector('.attack-physical').disabled = true;
     if(action >= 2 && action < 4){
-        
         setTimeout(function() {
             attackPhysicalRoshan();
         }, 4000);
         setTimeout(function() {
             attackMagicalRoshan();
-        }, 4000); 
-        
+        }, 4000);    
     }
 }
 
-
+////sound functions
 function playCeeb(){
     var audio = new Audio("sounds/ceeb.mp3");
     audio.play();
@@ -454,47 +387,45 @@ function hideStartGame(){
 function resetBoard(){
     ember.health = 5000;
     roshan.health =10000;
-    action = 0;
-    //when user fnishes attack add 1 to action counter;
     
-    
+  
     emberBaseAttackDamage = 1000;
     roshanBaseAttackDamage = 400;
-    
-    totalDamageDoneOnRoshan = 0;
-    
+     
     document.querySelector('.damage-done').innerHTML = totalDamageDoneOnRoshan;
     
-    document.querySelector('.damage-done').innerHTML = 0;
-    document.querySelector('.percentage-health-this-attack-on-roshan').innerHTML = 0;
-    document.querySelector('.percentage-health-total').innerHTML = 0;
-    document.querySelector('.damage-done').innerHTML = 0;
+  
+    document.querySelector('.percentage-health-this-attack-on-roshan').innerHTML = '';
+    document.querySelector('.percentage-health-total').innerHTML = '';
+   
     document.querySelector('.ember-health').innerHTML = 5000;
     document.querySelector('.roshan-health').innerHTML = 10000;
     document.querySelector('.total-damage-done').innerHTML = 0;
     document.getElementById('roshan-health-meter').value = 10000;
     
-    totalDamageDoneOnEmber = 0;
-    document.querySelector('.total-damage-done').innerHTML = 0;
-    document.querySelector('.damage-done').innerHTML = 0;
-    document.querySelector('.percentage-health-this-attack-on-ember').innerHTML = 0;
-    document.querySelector('.percentage-health-total').innerHTML = 0;
+    document.querySelector('.total-damage-done').innerHTML = '';
+    document.querySelector('.damage-done').innerHTML = '';
+    document.querySelector('.percentage-health-this-attack-on-ember').innerHTML = '';
+    document.querySelector('.percentage-health-total').innerHTML ='';
     document.getElementById('ember-health-meter').value = 5000;
 
+  
+    ////////roshan damage stuff
+   
     
     document.querySelector('.attack-magical').disabled = true;
     document.querySelector('.attack-physical').disabled = true;
-    document.getElementById('body').style.visibility = 'hidden';
-    document.querySelector('.play-again').style.visibility = 'visible';
 
 }
 
 function hidePlayAgain(){
     this.style.visibility = 'hidden';
-
     document.getElementById('body').style.visibility = 'visible';
     setTimeout(function(){
         document.querySelector('.attack-magical').disabled = false;
         document.querySelector('.attack-physical').disabled = false;
     }, 5000);
+    document.querySelector('p.turn-displayer').innerHTML = `Awaiting Ember's Turn`;
 }
+
+

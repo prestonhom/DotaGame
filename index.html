@@ -16,20 +16,14 @@
             <h1>Ember Score </h1>
             <p class='ember-score-counter'> 0 </p>
             <p class= 'health'>HEALTH: <span class ='ember-health'>5000</span></p>
-            
-            <meter id='ember-health-meter'max= 5000 min=0  value=5000 high= 5000 low=2499 >  </meter>
-            
+            <meter id='ember-health-meter'max= 5000 min=0 value=5000 high= 5000 low=2499>  </meter>
         </div>
         <div id='middle-header'>
-            
             <h1 class ='action'> BATTLE HOST SAYS</h1>
             <p class='turn-displayer'>Ember</p>    
             <button class='start-game'> Start Game</button>
             <button class='play-again'>Play Again </button>
-            
         </div>
-        
-        
         <div class ='roshan-score'> 
             <h1>Roshan Score </h1>
             <p class='roshan-score-counter'> 0</p>
@@ -38,35 +32,27 @@
         </div>
     </header>
     <main>
-        <!-- <img src="images/dota2background.gif" alt=""> -->
-            <div id='ember'> 
-                <img class='ember-image' src="images/emberSpirit.svg" height=200px width=200px alt="">
-            </div>
+        <div id='ember'> 
+            <img class='ember-image' src="images/emberSpirit1.png" height=186px width=200x alt="">
+        </div>
             <img id='fireball' src='images/fireball.svg'>
-            <div id='roshan'>
-                <img class='roshan-image' src="images/roshan.png" height=200px width= 200px alt="">
-            </div>
-        
+            <img id='lightning' src='images/lightning.png'>
+        <div id='roshan'>
+            <img class='roshan-image' src="images/roshan.png" height=186x width= 200px alt="">
+        </div>
     </main>
     <footer>
-        
         <div id='attack-buttons'>
             <button class='attack-physical'>Physical Attack</button>
             <button class='attack-magical'>Magical Attack</button>
-            <!-- <button class='drink-whiteclaw'>Drink WhiteClaw</button> -->
-            
-            <audio id='ceeb'>
-                <source src='sounds/ceeb.mp3'>
-            </audio>
         </div>        
-
-        <div>
+        <div >
             <h2 id='action-counter'> Fight Recap</h2>
-                <p class='damage-done'></p>
-                <p class='percentage-health-this-attack-on-roshan'></p>
-                <p class='percentage-health-this-attack-on-ember'></p>
-                <p class='percentage-health-total'></p>
-                <p class='total-damage-done'></p>
+                <p id='fight-recap' class='damage-done'></p>
+                <p id='fight-recap' class='percentage-health-this-attack-on-roshan'></p>
+                <p id='fight-recap' class='percentage-health-this-attack-on-ember'></p>
+                <p id='fight-recap' class='percentage-health-total'></p>
+                <p id='fight-recap' class='total-damage-done'></p>
         </div> 
     </footer>
 </body>
