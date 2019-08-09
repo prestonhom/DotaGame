@@ -1,4 +1,7 @@
 # Dota2Fighting is a turn based game where the objective of the game is to outlast the computer and have more health points remaining.
+![Start screen](images/startScreen.png "Start screen")
+![Before Attack](images/beforeAttack.png "Before Attack")
+![After an Attack](images/afterAttack.png "After an Attack")
 
 ## Ember(user) begins with 4000 health points and Roshan(computer) starts with 10000 health points.
 ### This game is played by the user selecting the order of one of two options:
