@@ -151,15 +151,12 @@ main{
         /* visibility: visible; */
         opacity: 1;
     }
-    99% {
-        left: 1200px;
+    100% {
+        left: 1000px;
         /* visibility: hidden; */
-        opacity: 1;
+        opacity: 0;
     }
-    100%{
-        left: 1300px;
-        visibility: hidden;
-    }
+   
 }
 
 #lightning{
