@@ -32,7 +32,8 @@ let ember,
     emberBaseAttackDamage = 800;
     roshanBaseAttackDamage = 400;
     round = 0;
-    
+    battleScoreEmber = 0;
+    battleScoreRoshan = 0;
     ember = {
         health: 5000,
         physDamage: attackPhysicalEmber,
@@ -42,7 +43,7 @@ let ember,
     roshan = {
         health: 10000,
         physDamage: attackPhysicalRoshan,
-        magicDamage: attackMagicalEmber
+        magicDamage: attackMagicalRoshan,
         // physDamage: function(){
         //     ember.health -= 400;
         // },
@@ -65,6 +66,10 @@ let damageDone = document.querySelector('.damage-done');
 let physicalAttackButton = document.querySelector('.attack-physical');
 let magicalAttackButton = document.querySelector('.attack-magical');
 let startGame = document.querySelector('.start-game');
+let roshanBattleScore = document.querySelector('.roshan-score-counter');
+let emberBattleScore = document.querySelector('.ember-score-counter');
+let playAgain = document.querySelector('.play-again');
+
 
 /*----- event listeners -----*/
 physicalAttackButton.addEventListener('click', ember.physDamage);
@@ -74,6 +79,11 @@ magicalAttackButton.addEventListener('click', ember.magicDamage);
 
 startGame.addEventListener('click', roshanClaim);
 startGame.addEventListener('click', hideStartGame);
+
+playAgain.addEventListener('click',firstBlood)
+playAgain.addEventListener('click',hidePlayAgain);
+
+
 
 
 
@@ -136,7 +146,7 @@ init();
 
 function attackPhysicalEmber(){
     // how much damage does Ember's physical attack button do 
-    document.querySelector('.attack-magical').disabled = true;
+    // document.querySelector('.attack-magical').disabled = true;
     playCeeb();
     activateFireball();
     //update Roshan health stats pull data from there
@@ -156,17 +166,20 @@ function attackPhysicalEmber(){
     setTimeout(function(){
         document.querySelector('p.turn-displayer').innerHTML = (`${attack} physical damage`);
     },2000);
-    setTimeout(function(){querySelector('p.turn-displayer').innerHTML = `Awaiting Ember's Turn`
-    },4000);
+    
     checkWinner();
     
     if(action === 0){
         action += 1;
         setTimeout(function(){
-            document.querySelector('.attack-magical').disabled = false;
-        }, 3000);
+        document.querySelector('p.turn-displayer').innerHTML = `Awaiting Ember's Turn`;
+    },3500);
     }else if(action === 1){
+       
         action +=2;
+        setTimeout(function(){
+            document.querySelector('p.turn-displayer').innerHTML = `Roshan is Attacking`;
+        },5000);
     }
 
     console.log(action);
@@ -197,16 +210,20 @@ function attackMagicalEmber(){
     setTimeout(function(){
         document.querySelector('p.turn-displayer').innerHTML = (`${attack} magic damage`);
     }, 2000);
-    setTimeout(function(){querySelector('p.turn-displayer').innerHTML = `Awaiting Ember's Turn`
-    },4000);
+    // setTimeout(function(){
+    //     document.querySelector('p.turn-displayer').innerHTML = `Awaiting Ember's Turn`;
+    // },4000);
     checkWinner();
     if(action === 0){
         action += 1;
         setTimeout(function(){
-            document.querySelector('.attack-physical').disabled = false;
-        }, 3000);
+            document.querySelector('p.turn-displayer').innerHTML = `Awaiting Ember's Turn`;
+        },3000);
     }else if(action === 1){
         action +=2;
+        setTimeout(function(){
+            document.querySelector('p.turn-displayer').innerHTML = `Roshan is Attacking`;
+        },5000);
     }
     checkAction();
     healthRegen();
@@ -253,7 +270,7 @@ function attackPhysicalRoshan(){
 
 
 function attackMagicalRoshan(){
-    let attack =  Math.floor(Math.random() * 1600);
+    let attack =  Math.floor(Math.random() * 1000);
     totalDamageDoneOnEmber += attack;
     document.querySelector('.damage-done').innerHTML = totalDamageDoneOnEmber;
     ember.health -= attack;
@@ -293,27 +310,30 @@ function attackMagicalRoshan(){
 
 
 function checkWinner(){
-    let roshanBattleScore = document.querySelector('.roshan-score-counter');
-    let emberBattleScore = document.querySelector('.ember-score-counter');
+    
     if(ember.health <= 0 && roshan.health > 0){
         playTrombone();
         playTeammates();
         document.querySelector('p.turn-displayer').innerHTML ='ROSHAN WINS YOU LOSE!';
-        roshanBattleScore += 1;
-        roshanBattleScore.innerHTML++;
-        // init();
-        document.querySelector('p.ember-health').innerHTML = '5000';
+        roshanBattleScore.innerHTML = `${battleScoreRoshan += 1}`;
         resetBoard();
+        // document.querySelector('p.ember-health').innerHTML = '5000';
+        // setTimeout(function(){
+        //     resetBoard();
+        // },3000); 
     }
     
-    if(roshan.health <= 0 && ember.health > 0){
+    else if(roshan.health <= 0 && ember.health > 0){
         playCheer();
         playBelieve();
-        emberBattleScore.innerHTML++;
-        // init();
+        roshanBattleScore.innerHTML = `${battleScoreEmber += 1}`;
         document.querySelector('p.turn-displayer').innerHTML = 'VICTORY! YOU WIN'; 
-        document.querySelector('p.roshan-health').innerHTML = '10000';
-        resetboard();
+        resetBoard();
+        
+        // document.querySelector('p.roshan-health').innerHTML = '10000';
+        // setTimeout(function(){
+        //     resetBoard();
+        // },3000); 
     }
     
 }
@@ -344,8 +364,8 @@ function checkAction(){
     else if (action >=3 && action <=4){
         
         setTimeout(function(){
-            document.querySelector('.turn-displayer').innerHTML = 'Roshan is attacking';
-        }, 3000);
+            document.querySelector('p.turn-displayer').innerHTML = 'Roshan is attacking';
+        }, 2000);
         document.querySelector('button.attack-physical').disabled = true;
         document.querySelector('button.attack-magical').disabled = true;
         // document.querySelector('button.drink-whiteclaw').disabled = true;
@@ -381,10 +401,10 @@ function roshansTurn(){
         
         setTimeout(function() {
             attackPhysicalRoshan();
-        }, 6000);
+        }, 4000);
         setTimeout(function() {
             attackMagicalRoshan();
-        }, 6000); 
+        }, 4000); 
         
     }
 }
@@ -432,6 +452,10 @@ function roshanClaim(){
     var audio = new Audio("sounds/roshanClaim.mp3");
     audio.play();
 }
+function firstBlood(){
+    var audio = new Audio("sounds/firstblood.mp3");
+    audio.play();
+}
 function hideStartGame(){
     this.style.visibility = 'hidden';
     // document.querySelector('button.attack-physical').style.visibility = 'visible';
@@ -443,9 +467,34 @@ function hideStartGame(){
     }, 5000);
 }
 function resetBoard(){
+    ember.health = 0;
+    roshan.health =0;
+    action =0;
+    //when user fnishes attack add 1 to action counter;
+    
+    
+    emberBaseAttackDamage = 1000;
+    roshanBaseAttackDamage = 400;
+    
+    totalDamageDoneOnRoshan = 0;
+    percentangeDamageOnRoshan = ((totalDamageDoneOnRoshan/roshan.health) * 100).toFixed(2);
+    
+    totalDamageDoneOnEmber = 0;
+    percentangeDamageEmber = ((totalDamageDoneOnEmber/ember.health) * 100).toFixed(2);
+    document.querySelector('.attack-magical').disabled = true;
+    document.querySelector('.attack-physical').disabled = true;
+    document.getElementById('body').style.visibility = 'hidden';
+    document.querySelector('.play-again').style.visibility = 'visible';
+
+}
+
+function hidePlayAgain(){
+    this.style.visibility = 'hidden';
+    // document.querySelector('button.attack-physical').style.visibility = 'visible';
+    // document.querySelector('button.attack-magical').style.visibility = 'visible';
+    document.getElementById('body').style.visibility = 'visible';
     setTimeout(function(){
-        action = 0;
-        ember.health =5000;
-        roshan.health = 10000;
-    }, 4000);
+        document.querySelector('.attack-magical').disabled = false;
+        document.querySelector('.attack-physical').disabled = false;
+    }, 5000);
 }

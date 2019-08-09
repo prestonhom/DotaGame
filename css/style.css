@@ -222,3 +222,20 @@ footer #attack-buttons button:hover {
     cursor:pointer;
     
 }
+
+
+.play-again{
+    visibility: hidden;
+    border-radius:5px;
+    padding:20px;
+    margin-left:100px;
+    position:absolute;
+    
+
+}
+
+.play-again{
+    background-color: red;
+    cursor:pointer;
+    
+}
